@@ -126,7 +126,7 @@ const ImageCarousel = () => {
             />
 
             {/* Content Overlay */}
-            <div className="absolute inset-0 z-20 flex items-center">
+            <div className="absolute inset-0  flex items-center">
               <div className="container mx-auto px-8">
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
