@@ -1,0 +1,685 @@
+/* Reset dan base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    .galeri-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.galeri-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #eaeaea;
+}
+
+.galeri-header h1 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+  font-size: 2.5rem;
+}
+
+.galeri-header p {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+}
+
+.upload-info {
+  background-color: #f8f9fa;
+  border-left: 4px solid #3498db;
+  padding: 10px 15px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.upload-info small {
+  color: #5a6268;
+}
+
+/* Section Header */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.section-header h2 {
+  color: #34495e;
+  font-size: 1.8rem;
+}
+
+.filter-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.filter-btn {
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+  border-color: #3498db;
+  color: #3498db;
+}
+
+.filter-btn.active {
+  background-color: #3498db;
+  color: white;
+  border-color: #3498db;
+}
+
+/* Gallery Grid */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.gallery-item {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.image-wrapper {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.gallery-item:hover .image-wrapper img {
+  transform: scale(1.05);
+}
+
+.delete-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(231, 76, 60, 0.9);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease, background 0.3s ease;
+}
+
+.gallery-item:hover .delete-btn {
+  opacity: 1;
+}
+
+.delete-btn:hover {
+  background: #c0392b;
+}
+
+.image-details {
+  padding: 20px;
+}
+
+.image-details h3 {
+  color: #2c3e50;
+  margin: 0 0 10px 0;
+  font-size: 1.2rem;
+  line-height: 1.4;
+}
+
+.image-description {
+  color: #7f8c8d;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.image-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+}
+
+.date-badge {
+  background-color: #ecf0f1;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  color: #34495e;
+}
+
+.image-id {
+  color: #95a5a6;
+  font-size: 0.85rem;
+  font-family: monospace;
+}
+
+/* Loading State */
+.loading-state {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error State */
+.error-state {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #fee;
+  border-radius: 10px;
+  border: 1px solid #f5c6cb;
+}
+
+.error-state p {
+  color: #721c24;
+  margin-bottom: 20px;
+}
+
+.retry-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.retry-btn:hover {
+  background-color: #c82333;
+}
+
+/* Empty Gallery */
+.empty-gallery {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  border: 2px dashed #dee2e6;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+.empty-gallery h3 {
+  color: #6c757d;
+  margin-bottom: 10px;
+}
+
+.empty-gallery p {
+  color: #adb5bd;
+}
+
+/* Gallery Footer */
+.gallery-footer {
+  text-align: center;
+  padding: 20px;
+  border-top: 1px solid #eee;
+  margin-top: 20px;
+}
+
+.gallery-stats {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+/* Footer */
+.galeri-footer {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #eaeaea;
+  color: #95a5a6;
+  font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .galeri-container {
+    padding: 15px;
+  }
+  
+  .galeri-header h1 {
+    font-size: 2rem;
+  }
+  
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .filter-controls {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 10px;
+  }
+  
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .image-wrapper {
+    height: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .galeri-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .delete-btn {
+    opacity: 1; /* Always show on mobile */
+  }
+}
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  .flyer-gallery {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Header styles */
+  .gallery-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 20px;
+    background: linear-gradient(135deg, #6a11cb 0%, 100%);
+    color: black;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .gallery-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+  
+  .subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 25px;
+  }
+  
+  /* Pencarian */
+  .search-container {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto 20px;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 15px 20px 15px 50px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .search-input:focus {
+    outline: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .search-icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6a11cb;
+    font-size: 1.2rem;
+  }
+  
+  .gallery-info {
+    font-size: 0.95rem;
+    opacity: 0.9;
+    text-align: center;
+  }
+  
+  /* Grid galeri */
+  .flyer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+  }
+  
+  /* Kartu flyer */
+  .flyer-card {
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .flyer-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  }
+  
+  .flyer-image-container {
+    position: relative;
+    overflow: hidden;
+    background-color: #f0f0f0;
+    aspect-ratio: 8.5/11; /* Proporsi flyer 8.5x11 */
+  }
+  
+  .flyer-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  
+  .flyer-card:hover .flyer-image {
+    transform: scale(1.05);
+  }
+  
+  .flyer-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(106, 17, 203, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .flyer-card:hover .flyer-overlay {
+    opacity: 1;
+  }
+  
+  .view-text {
+    color: white;
+    font-weight: 600;
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+  }
+  
+  .flyer-info {
+    padding: 20px;
+  }
+  
+  .flyer-title {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .flyer-description {
+    color: #666;
+    font-size: 0.95rem;
+  }
+  
+  /* Modal styles */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+  }
+  
+  .modal-content {
+    background-color: white;
+    border-radius: 12px;
+    max-width: 900px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.3s;
+  }
+  
+  .close-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  
+  .modal-flyer-container {
+    background-color: #f5f5f5;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-flyer-image {
+    max-width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+  }
+  
+  .modal-info {
+    padding: 30px;
+  }
+  
+  .modal-info h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .modal-info p {
+    color: #666;
+    margin-bottom: 25px;
+    font-size: 1.05rem;
+  }
+  
+  .flyer-specs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  .spec-item {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .spec-label {
+    font-weight: 600;
+    color: #6a11cb;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+  }
+  
+  .spec-value {
+    color: #333;
+    font-size: 1rem;
+  }
+  
+  .modal-actions {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .action-button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .download-button {
+    background-color: #6a11cb;
+    color: white;
+  }
+  
+  .download-button:hover {
+    background-color: #5a0db3;
+  }
+  
+  .share-button {
+    background-color: #2575fc;
+    color: white;
+  }
+  
+  .share-button:hover {
+    background-color: #1c67e3;
+  }
+  
+  /* Footer */
+  .gallery-footer {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    border-top: 1px solid #eaeaea;
+    margin-top: 30px;
+  }
+  
+  /* Responsif */
+  @media (max-width: 768px) {
+    .flyer-grid {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    
+    .gallery-header h1 {
+      font-size: 2rem;
+    }
+    
+    .modal-content {
+      flex-direction: column;
+    }
+    
+    .modal-flyer-container {
+      padding: 20px;
+    }
+    
+    .modal-flyer-image {
+      max-height: 400px;
+    }
+    
+    .modal-actions {
+      flex-direction: column;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .flyer-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .gallery-header {
+      padding: 15px;
+    }
+    
+    .gallery-header h1 {
+      font-size: 1.7rem;
+    }
+    
+    .search-input {
+      padding: 12px 15px 12px 45px;
+      font-size: 0.95rem;
+    }
+  }

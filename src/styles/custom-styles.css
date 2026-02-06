@@ -1,0 +1,429 @@
+/* ==========================================================================
+   LSP - Lembaga Sertifikasi Profesi Custom Styles
+   ========================================================================== */
+
+/* Brand Colors */
+:root {
+    --lsp-primary: #0A1F44;      /* Navy Blue - Main Brand */
+    --lsp-secondary: #D4AF37;    /* Gold - Accent */
+    --lsp-accent: #C62828;       /* Deep Red - Secondary Accent */
+    --lsp-light: #F8F9FA;        /* Light Background */
+    --lsp-dark: #121212;         /* Dark Background */
+    --lsp-success: #2E7D32;      /* Success Green */
+    --lsp-warning: #F57C00;      /* Warning Orange */
+    --lsp-info: #0277BD;         /* Info Blue */
+  }
+  
+  /* ==========================================================================
+     Typography Enhancements
+     ========================================================================== */
+  
+  /* Professional Font Stacks */
+  .lsp-heading {
+    font-family: 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--lsp-primary);
+  }
+  
+  .lsp-subheading {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--lsp-primary);
+  }
+  
+  .lsp-body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #333333;
+  }
+  
+  /* Certificate/Diploma Style Text */
+  .certificate-text {
+    font-family: 'Playfair Display', 'Times New Roman', serif;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--lsp-primary);
+  }
+  
+  /* ==========================================================================
+     Special Components for LSP
+     ========================================================================== */
+  
+  /* Certificate Badge */
+  .certificate-badge {
+    position: relative;
+    display: inline-block;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, var(--lsp-primary), #1a3a6e);
+    color: white;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(10, 31, 68, 0.2);
+  }
+  
+  .certificate-badge::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--lsp-secondary), transparent);
+    border-radius: 6px;
+    z-index: -1;
+    opacity: 0.7;
+  }
+  
+  /* SKKNI Level Indicators */
+  .skkni-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .skkni-level-3 {
+    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+    color: white;
+  }
+  
+  .skkni-level-4 {
+    background: linear-gradient(135deg, #2196F3, #0D47A1);
+    color: white;
+  }
+  
+  /* Training Card Enhancements */
+  .training-card {
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    background: white;
+    overflow: hidden;
+  }
+  
+  .training-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--lsp-secondary);
+    box-shadow: 0 20px 40px rgba(212, 175, 55, 0.15);
+  }
+  
+  .training-card-header {
+    background: linear-gradient(135deg, var(--lsp-primary), #1a3a6e);
+    color: white;
+    padding: 1.5rem;
+  }
+  
+  .training-card-skkni {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--lsp-secondary);
+    color: var(--lsp-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.875rem;
+  }
+  
+  /* ==========================================================================
+     Form Styles for LSP Registration
+     ========================================================================== */
+  
+  .lsp-form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .lsp-form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--lsp-primary);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .lsp-form-input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 2px solid #E5E7EB;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: white;
+  }
+  
+  .lsp-form-input:focus {
+    outline: none;
+    border-color: var(--lsp-secondary);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+  }
+  
+  .lsp-form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%230A1F44'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.5em;
+  }
+  
+  /* ==========================================================================
+     Button Enhancements
+     ========================================================================== */
+  
+  .btn-lsp-primary {
+    background: linear-gradient(135deg, var(--lsp-accent), #B71C1C);
+    color: white;
+    border: none;
+    padding: 0.875rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(198, 40, 40, 0.3);
+  }
+  
+  .btn-lsp-primary:hover {
+    background: linear-gradient(135deg, #B71C1C, #8B0000);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(198, 40, 40, 0.4);
+  }
+  
+  .btn-lsp-secondary {
+    background: linear-gradient(135deg, var(--lsp-secondary), #B8860B);
+    color: var(--lsp-primary);
+    border: none;
+    padding: 0.875rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-lsp-secondary:hover {
+    background: linear-gradient(135deg, #B8860B, #996515);
+    color: white;
+    transform: translateY(-2px);
+  }
+  
+  /* ==========================================================================
+     Navigation Enhancements
+     ========================================================================== */
+  
+  .lsp-navbar {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.95);
+    border-bottom: 3px solid var(--lsp-secondary);
+  }
+  
+  .lsp-nav-link {
+    position: relative;
+    padding: 0.5rem 0;
+    margin: 0 1rem;
+    color: var(--lsp-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 0.5px;
+  }
+  
+  .lsp-nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: var(--lsp-secondary);
+    transition: width 0.3s ease;
+  }
+  
+  .lsp-nav-link:hover::after,
+  .lsp-nav-link.active::after {
+    width: 100%;
+  }
+  
+  /* ==========================================================================
+     Hero Section Enhancements
+     ========================================================================== */
+  
+  .lsp-hero-overlay {
+    background: linear-gradient(135deg, 
+      rgba(10, 31, 68, 0.9) 0%, 
+      rgba(26, 58, 110, 0.8) 50%, 
+      rgba(10, 31, 68, 0.7) 100%);
+  }
+  
+  .lsp-hero-stats {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .lsp-hero-stats:hover {
+    background: rgba(212, 175, 55, 0.2);
+    border-color: var(--lsp-secondary);
+    transform: translateY(-4px);
+  }
+  
+  /* ==========================================================================
+     Footer Enhancements
+     ========================================================================== */
+  
+  .lsp-footer {
+    background: linear-gradient(135deg, var(--lsp-primary), #0c2344);
+    border-top: 4px solid var(--lsp-secondary);
+  }
+  
+  .lsp-footer-section {
+    border-left: 3px solid var(--lsp-secondary);
+    padding-left: 1.5rem;
+  }
+  
+  .lsp-footer-link {
+    position: relative;
+    padding-left: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .lsp-footer-link::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--lsp-secondary);
+    font-weight: bold;
+  }
+  
+  .lsp-footer-link:hover {
+    color: var(--lsp-secondary);
+    padding-left: 1.5rem;
+  }
+  
+  /* ==========================================================================
+     Responsive Adjustments
+     ========================================================================== */
+  
+  @media (max-width: 768px) {
+    .lsp-heading {
+      font-size: 1.75rem;
+    }
+    
+    .lsp-subheading {
+      font-size: 1.25rem;
+    }
+    
+    .training-card:hover {
+      transform: translateY(-4px);
+    }
+    
+    .lsp-nav-link {
+      margin: 0 0.5rem;
+      font-size: 0.75rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .certificate-badge {
+      padding: 6px 12px;
+      font-size: 0.75rem;
+    }
+    
+    .skkni-badge {
+      padding: 4px 8px;
+      font-size: 0.625rem;
+    }
+  }
+  
+  /* ==========================================================================
+     Animation Keyframes
+     ========================================================================== */
+  
+  @keyframes lspPulse {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.05);
+    }
+  }
+  
+  @keyframes lspFloat {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  .lsp-pulse {
+    animation: lspPulse 2s ease-in-out infinite;
+  }
+  
+  .lsp-float {
+    animation: lspFloat 3s ease-in-out infinite;
+  }
+  
+  /* ==========================================================================
+     Utility Classes
+     ========================================================================== */
+  
+  .text-lsp-primary { color: var(--lsp-primary); }
+  .text-lsp-secondary { color: var(--lsp-secondary); }
+  .text-lsp-accent { color: var(--lsp-accent); }
+  
+  .bg-lsp-primary { background-color: var(--lsp-primary); }
+  .bg-lsp-secondary { background-color: var(--lsp-secondary); }
+  .bg-lsp-accent { background-color: var(--lsp-accent); }
+  
+  .border-lsp-primary { border-color: var(--lsp-primary); }
+  .border-lsp-secondary { border-color: var(--lsp-secondary); }
+  .border-lsp-accent { border-color: var(--lsp-accent); }
+  
+  /* Gradient Backgrounds */
+  .bg-gradient-lsp {
+    background: linear-gradient(135deg, var(--lsp-primary), var(--lsp-accent));
+  }
+  
+  .bg-gradient-lsp-secondary {
+    background: linear-gradient(135deg, var(--lsp-secondary), #F1C40F);
+  }
+  
+  /* ==========================================================================
+     Print Styles for Certificates
+     ========================================================================== */
+  
+  @media print {
+    .lsp-print-certificate {
+      border: 20px solid var(--lsp-primary);
+      padding: 2cm;
+      background: white;
+    }
+    
+    .no-print {
+      display: none !important;
+    }
+    
+    .certificate-text {
+      font-size: 24pt;
+    }
+  }
