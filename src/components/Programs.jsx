@@ -1,69 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Clock, Users, Award, BookOpen, Presentation, Target, Lightbulb, MessageSquare } from 'lucide-react';
+import { Clock, Users, Award, BookOpen, Presentation, Target, RocketIcon, Lightbulb, MessageSquare, Building2 } from 'lucide-react';
+import axiosInstance from '../lib/api';
+import EmptyState from './ui/EmptyState';
+
+const iconMap = {
+  Presentation,
+  Target,
+  Lightbulb,
+  MessageSquare,
+  Users,
+  BookOpen
+};
+
 const Programs = () => {
-  const programs = [{
-    icon: Presentation,
-    title: 'Training for Trainer (ToT) Instruktur Junior/SKKNI Lv 3',
-    duration: '2 Hari',
-    participants: 'Max 20 peserta',
-    level: 'Beginner',
-    description: 'Program fundamental untuk membangun pondasi kuat sebagai trainer profesional. Mencakup teknik presentasi, komunikasi efektif, dan pengelolaan kelas.',
-    benefits: ['Menguasai teknik presentasi yang engaging', 'Memahami psikologi pembelajaran orang dewasa', 'Mampu merancang materi pelatihan yang efektif', 'Sertifikat resmi ToT Instruktur Junior/SKKNI Lv 3'],
-    // price: 'Rp 5.500.000',
-    image: '/assets/images/P1.jpeg'
-  }, {
-    icon: Target,
-    title: 'Training for Trainer (ToT) Instruktur/SKKNI Lv 4',
-    duration: '3-4 Hari',
-    participants: 'Max 20 peserta',
-    level: 'Advanced',
-    description: 'Program lanjutan untuk trainer yang ingin meningkatkan kompetensi dengan teknik-teknik modern dan metodologi pembelajaran berbasis neuroscience.',
-    benefits: ['Advanced facilitation techniques', 'Gamifikasi dalam pembelajaran', 'Evaluasi dan assessment yang terukur', 'Coaching & mentoring skills', 'Sertifikat resmi ToT Instruktur/SKKNI Lv 4'],
-    // price: 'Rp 7.500.000',
-    image: '/assets/images/P2.jpeg'
-  }, {
-    icon: Lightbulb,
-    title: 'Creative Training Design',
-    duration: '2 Hari',
-    participants: 'Max 20 peserta',
-    level: 'Intermediate',
-    description: 'Fokus pada perancangan program pelatihan yang kreatif dan inovatif dengan pendekatan design thinking dan instructional design.',
-    benefits: ['Mendesain kurikulum pelatihan yang menarik', 'Teknik storytelling dalam training', 'Menggunakan multimedia secara efektif', 'Project-based learning design'],
-    // price: 'Rp 4.500.000',
-    image: '/assets/images/P3.jpeg'
-  }, {
-    icon: MessageSquare,
-    title: 'Public Speaking & Presentation Skills',
-    duration: '2 Hari',
-    participants: 'Max 15 peserta',
-    level: 'All Levels',
-    description: 'Program khusus untuk meningkatkan kemampuan berbicara di depan umum dan presentasi yang memukau dengan teknik komunikasi verbal dan non-verbal.',
-    benefits: ['Mengatasi demam panggung', 'Teknik voice modulation', 'Body language yang persuasif', 'Struktur presentasi yang powerful'],
-    // price: 'Rp 3.800.000',
-    image: '/assets/images/P4.jpeg'
-  }, {
-    icon: Users,
-    title: 'Training Officer Course',
-    duration: '3 Hari',
-    participants: 'Max 12 peserta',
-    level: 'Professional',
-    description: 'Program eksklusif untuk  Training Officer Course dengan berfokus pada penguasaan keterampilan inti yang dibutuhkan untuk merancang, menyampaikan, dan mengevaluasi program pelatihan di organisasi.',
-    benefits: ['Meningkatkan kompetensi profesional dalam bidang training & development', 'Menambah peluang karier, seperti Training Officer, Trainer, Learning Specialist, atau HR Development', 'Menguasai teknik menyusun dan menyampaikan pelatihan secara menarik dan efektif', 'Mendapat sertifikasi yang dapat meningkatkan kredibilitas', 'Meningkatkan kepercayaan diri dalam berbicara di depan umum dan memfasilitasi kelas'],
-    // price: 'Rp 5.500.000',
-    image: '/assets/images/P5.jpeg'
-  }, {
-    icon: BookOpen,
-    title: 'Online Training Mastery',
-    duration: '3 Hari',
-    participants: 'Max 20 peserta',
-    level: 'Intermediate',
-    description: 'Program khusus untuk menguasai teknik pelatihan online yang engaging dan efektif di era digital dengan berbagai platform dan tools.',
-    benefits: ['Virtual facilitation techniques', 'Engagement strategies untuk online learning', 'Penggunaan tools digital untuk training', 'Hybrid training management'],
-    // price: 'Rp 4.800.000',
-    image: '/assets/images/P6.jpeg'
-  }];
+  const [programs, setPrograms] = useState([]);
+
+  const fetchPrograms = async () => {
+    try {
+      await axiosInstance.get("/programs").then((res) =>{
+        const data = res.data.data;
+        // Map icon strings to actual components
+        const programsWithIcons = data.map(program => ({
+          ...program,
+          icon: iconMap[program.icon] || Presentation
+        }));
+        setPrograms(programsWithIcons);
+      });
+    } catch (error) {
+      console.error("An error occurred:", error.message);
+    }
+  }
+
+  useEffect(() => {
+    fetchPrograms();
+  }, []);
+
   const scrollToRegistration = () => {
     const element = document.getElementById('registration');
     if (element) {
@@ -115,7 +88,11 @@ const Programs = () => {
         </motion.div>
 
         <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-8'>
-          {programs.map((program, index) => <motion.div key={index} initial={{
+          {
+            programs.length === 0 ?(
+              <EmptyState sectionName="Program" icon={RocketIcon} />
+            ) : (
+              programs.map((program, index) => <motion.div key={index} initial={{
           opacity: 0,
           y: 30
         }} whileInView={{
@@ -127,7 +104,7 @@ const Programs = () => {
           delay: index * 0.1
         }} className='bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 group hover:-translate-y-2 border border-gray-100'>
               <div className='relative h-48 overflow-hidden'>
-                <img className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-300' alt={program.title} src={program.image}/>
+                <img className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-300' alt={program.title} src={`${import.meta.env.VITE_API_BASE_URL}/${program.image}`.replaceAll("/api/v1","")}/>
                 <div className='absolute inset-0 bg-gradient-to-t from-black/60 to-transparent'></div>
                 <div className='absolute top-4 right-4'>
                   <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getLevelColor(program.level)}`}>
@@ -149,11 +126,11 @@ const Programs = () => {
                 <div className='flex items-center gap-4 mb-4 text-sm text-gray-600'>
                   <div className='flex items-center gap-1'>
                     <Clock className='w-4 h-4' />
-                    <span>{program.duration}</span>
+                    <span>{program.duration} hari</span>
                   </div>
                   <div className='flex items-center gap-1'>
                     <Users className='w-4 h-4' />
-                    <span>{program.participants}</span>
+                    <span>Max {program.participants} peserta</span>
                   </div>
                 </div>
 
@@ -184,7 +161,9 @@ const Programs = () => {
                   </Button>
                 </div>
               </div>
-            </motion.div>)}
+            </motion.div>)
+            )
+          }
         </div>
 
         <motion.div initial={{

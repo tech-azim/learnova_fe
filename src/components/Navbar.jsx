@@ -44,7 +44,7 @@ const Navbar = () => {
     y: 0
   }} transition={{
     duration: 0.5
-  }} className={`fixed top-0 left-0 right-0 z-20 transition-all duration-300 ${isScrolled ? 'bg-white shadow-lg' : 'bg-transparent'}`}>
+  }} className={`fixed top-0 left-0 right-0 z-30 transition-all duration-300 ${isScrolled ? 'bg-white shadow-lg' : 'bg-transparent'}`}>
       <div className='container mx-auto px-4 py-4'>
         <div className='flex items-center justify-between'>
           <motion.div whileHover={{

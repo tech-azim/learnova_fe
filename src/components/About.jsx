@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Target, Eye, Award, BookOpen, Users, TrendingUp } from 'lucide-react';
+import { Target, Eye, Award, BookOpen, Users, TrendingUp, BriefcaseBusiness, Building2 } from 'lucide-react';
+import EmptyState from './ui/EmptyState';
+import axiosInstance from '../lib/api';
 
 
 const About = () => {
@@ -37,23 +39,22 @@ const About = () => {
     }
   ];
 
-  const portfolio = [
-    {
-      title: 'Perusahaan BUMN',
-      count: '50+',
-      description: 'Telah mempercayai kami untuk mengembangkan trainer internal mereka'
-    },
-    {
-      title: 'Perusahaan Swasta',
-      count: '100+',
-      description: 'Dari berbagai industri telah mengikuti program training kami'
-    },
-    {
-      title: 'Instansi Pemerintah',
-      count: '30+',
-      description: 'Lembaga pemerintah yang telah berkolaborasi dengan kami'
+  const [portfolios, setPortfolios] = useState([]);
+
+  const fetchPortfolios = async () => {
+    try {
+      await axiosInstance.get("/portfolios").then((res) =>{
+        const data = res.data.data;
+        setPortfolios(data);
+      });
+    } catch (error) {
+      console.error("An error occurred:", error.message);
     }
-  ];
+  }
+
+  useEffect(() => {
+    fetchPortfolios();
+  }, [])
 
   return (
     <section id='about' className='py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden'>
@@ -114,22 +115,26 @@ const About = () => {
 
 
         <div className='grid md:grid-cols-3 gap-8 mb-20'>
-          {portfolio.map((item, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className='bg-white rounded-xl shadow-lg p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2'
-            >
-              <div className='text-5xl font-bold bg-gradient-to-r from-red-600 to-[#D4AF37] bg-clip-text text-transparent mb-3'>
-                {item.count}
-              </div>
-              <h3 className='text-xl font-bold text-[#0A1F44] mb-2'>{item.title}</h3>
-              <p className='text-gray-600'>{item.description}</p>
-            </motion.div>
-          ))}
+          { portfolios.length === 0 ? (
+            <EmptyState sectionName="Portofolio" icon={BriefcaseBusiness} /> 
+          ) : (
+            portfolios.map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className='bg-white rounded-xl shadow-lg p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2'
+              >
+                <div className='text-5xl font-bold bg-gradient-to-r from-red-600 to-[#D4AF37] bg-clip-text text-transparent mb-3'>
+                  {item.count}+
+                </div>
+                <h3 className='text-xl font-bold text-[#0A1F44] mb-2'>{item.title}</h3>
+                <p className='text-gray-600'>{item.description}</p>
+              </motion.div>
+            ))
+          )}
         </div>
 
         <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-8'>

@@ -12,6 +12,7 @@ import CallToAction from "@/components/CallToAction";
 import Galeri from "./components/Galeri";
 import VideoGallery from "./components/VideoGallery";
 import FlyerGallery from "./components/FlyerGallery";
+import Services from "./components/Services";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Hero />
         <About />
         <Programs />
+        <Services />
         <Galeri />
         <VideoGallery />
         <FlyerGallery />

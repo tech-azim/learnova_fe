@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
-  Building2, 
   GraduationCap, 
   Laptop, 
   Wrench, 
@@ -10,72 +9,47 @@ import {
   Code2,
   Truck,
   ChefHat,
-  DollarSign
+  DollarSign,
+  Building2
 } from 'lucide-react';
+import axiosInstance from "../lib/api";
+import EmptyState from './ui/EmptyState';
+
+const iconMap = {
+  GraduationCap, 
+  Laptop, 
+  Wrench, 
+  Stethoscope, 
+  Calculator,
+  Code2,
+  Truck,
+  ChefHat,
+  DollarSign,
+  Building2
+}
 
 const Services = () => {
-  const services = [
-    {
-      icon: Building2,
-      title: 'Sertifikasi Manajemen',
-      description: 'ISO, Quality Management, Project Management Professional (PMP)',
-      color: 'from-blue-500 to-blue-600'
-    },
-    {
-      icon: GraduationCap,
-      title: 'Sertifikasi Pendidikan',
-      description: 'Guru Profesional, Dosen, Instruktur, Training of Trainer',
-      color: 'from-green-500 to-green-600'
-    },
-    {
-      icon: Laptop,
-      title: 'Sertifikasi IT & Teknologi',
-      description: 'Network Security, Cloud Computing, Data Science, Software Development',
-      color: 'from-purple-500 to-purple-600'
-    },
-    {
-      icon: Wrench,
-      title: 'Sertifikasi Teknik',
-      description: 'Electrical Engineer, Mechanical Engineer, Civil Engineering',
-      color: 'from-orange-500 to-orange-600'
-    },
-    {
-      icon: Stethoscope,
-      title: 'Sertifikasi Kesehatan',
-      description: 'Nursing, Medical Laboratory, Healthcare Management',
-      color: 'from-red-500 to-red-600'
-    },
-    {
-      icon: Calculator,
-      title: 'Sertifikasi Keuangan',
-      description: 'Accounting, Tax Consultant, Financial Analyst',
-      color: 'from-emerald-500 to-emerald-600'
-    },
-    {
-      icon: Code2,
-      title: 'Sertifikasi Digital',
-      description: 'Digital Marketing, UI/UX Design, SEO Specialist',
-      color: 'from-pink-500 to-pink-600'
-    },
-    {
-      icon: Truck,
-      title: 'Sertifikasi Logistik',
-      description: 'Supply Chain Management, Logistics, Warehouse Management',
-      color: 'from-amber-500 to-amber-600'
-    },
-    {
-      icon: ChefHat,
-      title: 'Sertifikasi Hospitality',
-      description: 'Hotel Management, Culinary Arts, Tourism',
-      color: 'from-rose-500 to-rose-600'
-    },
-    {
-      icon: DollarSign,
-      title: 'Sertifikasi Bisnis',
-      description: 'Business Analyst, Entrepreneurship, Sales Professional',
-      color: 'from-indigo-500 to-indigo-600'
+  const [services, setServices] = useState([]); 
+
+  const fetchServices = async () => {
+    try {
+      await axiosInstance.get("/services").then((res) => {
+        const data = res.data.data;
+        // Map icon strings to actual components
+        const servicesWithIcons = data.map(service => ({
+          ...service,
+          icon: iconMap[service.icon] || Building2
+        }));
+        setServices(servicesWithIcons);
+      })
+    } catch (error) {
+       console.error("An error occurred:", error.message);
     }
-  ];
+  }
+
+  useEffect(() => {
+    fetchServices();
+  }, []);
 
   return (
     <section id='services' className='py-20 bg-white relative overflow-hidden'>
@@ -103,22 +77,26 @@ const Services = () => {
         </motion.div>
 
         <div className='grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6'>
-          {services.map((service, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className='bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all duration-300 group hover:-translate-y-2 border border-gray-100'
-            >
-              <div className={`w-16 h-16 bg-gradient-to-br ${service.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
-                <service.icon className='w-8 h-8 text-white' />
-              </div>
-              <h3 className='text-lg font-bold text-gray-900 mb-2'>{service.title}</h3>
-              <p className='text-sm text-gray-600 leading-relaxed'>{service.description}</p>
-            </motion.div>
-          ))}
+          {services.length === 0 ? (
+            <EmptyState sectionName="Layanan" icon={Building2} />
+          ) : (
+            services.map((service, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className='bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all duration-300 group hover:-translate-y-2 border border-gray-100'
+              >
+                <div className={`w-16 h-16 bg-gradient-to-br rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`} style={{backgroundColor: service.color}}>
+                  <service.icon className='w-8 h-8 text-white' />
+                </div>
+                <h3 className='text-lg font-bold text-gray-900 mb-2'>{service.title}</h3>
+                <p className='text-sm text-gray-600 leading-relaxed'>{service.description}</p>
+              </motion.div>
+            ))
+          )}
         </div>
 
         <motion.div
