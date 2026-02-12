@@ -1,45 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Target, Eye, Award, BookOpen, Users, TrendingUp, BriefcaseBusiness, Building2 } from 'lucide-react';
+import { Target, Eye, Award, BookOpen, Users, List, TrendingUp, BriefcaseBusiness, Building2 } from 'lucide-react';
 import EmptyState from './ui/EmptyState';
 import axiosInstance from '../lib/api';
 
 
 const About = () => {
-  const features = [
-    {
-      icon: Target,
-      title: 'Visi Kami',
-      description: 'Menjadi lembaga pelatihan trainer terdepan di Indonesia yang menghasilkan trainer-trainer berkualitas tinggi dan berdaya saing global.'
-    },
-    {
-      icon: Eye,
-      title: 'Misi Kami',
-      description: 'Mengembangkan kompetensi trainer melalui program pelatihan yang inovatif, praktis, dan berbasis hasil nyata.'
-    },
-    {
-      icon: Award,
-      title: 'Sertifikasi Resmi',
-      description: 'Program kami bersertifikat dan diakui secara nasional, memberikan kredibilitas profesional yang kuat.'
-    },
-    {
-      icon: BookOpen,
-      title: 'Metodologi Proven',
-      description: 'Menggunakan metode pembelajaran yang telah terbukti efektif dan disesuaikan dengan kebutuhan industri.'
-    },
-    {
-      icon: Users,
-      title: 'Trainer Berpengalaman',
-      description: 'Dibimbing oleh para ahli dan praktisi dengan pengalaman puluhan tahun di bidang pelatihan dan pengembangan SDM.'
-    },
-    {
-      icon: TrendingUp,
-      title: 'Hasil Terukur',
-      description: 'Fokus pada peningkatan kompetensi yang terukur dengan evaluasi komprehensif dan dukungan pasca pelatihan.'
-    }
-  ];
-
   const [portfolios, setPortfolios] = useState([]);
+  const [features, setFeatures] = useState([]);
+
+  const iconMap = {
+    Target, Eye, Award, BookOpen, Users, List, TrendingUp, BriefcaseBusiness, Building2
+  }
 
   const fetchPortfolios = async () => {
     try {
@@ -52,8 +24,24 @@ const About = () => {
     }
   }
 
+  const fetchFeatures = async () => {
+    try {
+      await axiosInstance.get("/features").then((res) =>{
+        const data = res.data.data;
+        const featuresWithIcons = data.map(service => ({
+          ...service,
+          icon: iconMap[service.icon] || Building2
+        }));
+        setFeatures(featuresWithIcons);
+      });
+    } catch (error) {
+      console.error("An error occurred:", error.message);
+    }
+  }
+
   useEffect(() => {
     fetchPortfolios();
+    fetchFeatures();
   }, [])
 
   return (
@@ -138,7 +126,10 @@ const About = () => {
         </div>
 
         <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-8'>
-          {features.map((feature, index) => (
+          { features.length === 0 ? (
+            <EmptyState sectionName="Fitur" icon={List} /> 
+          ) : (
+          features.map((feature, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
@@ -153,7 +144,7 @@ const About = () => {
               <h3 className='text-xl font-bold text-[#0A1F44] mb-3'>{feature.title}</h3>
               <p className='text-gray-600 leading-relaxed'>{feature.description}</p>
             </motion.div>
-          ))}
+          )))}
         </div>
 
         <motion.div
