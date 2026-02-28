@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axiosInstance from "../lib/api";
+import { formatDate } from "../lib/formatDate";
 import "../styles/Galeri.css";
+import { CalendarDays } from "lucide-react";
 
 const Galeri = () => {
   const [images, setImages] = useState([]);
@@ -102,8 +104,8 @@ const Galeri = () => {
                     <h3>{image.title}</h3>
                     <p className="image-description">{image.description}</p>
                     <div className="image-meta">
-                      <span className="date-badge">
-                        📅 {image.date || image.created_at}
+                      <span className="date-badge flex items-center gap-2">
+                        <CalendarDays /> {formatDate(image.date) || formatDate(image.created_at)}
                       </span>
                       <span className="image-id">ID: #{image.id}</span>
                     </div>

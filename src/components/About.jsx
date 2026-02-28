@@ -104,7 +104,10 @@ const About = () => {
 
         <div className='grid md:grid-cols-3 gap-8 mb-20'>
           { portfolios.length === 0 ? (
-            <EmptyState sectionName="Portofolio" icon={BriefcaseBusiness} /> 
+            <EmptyState
+              title="Belum ada Portofolio"
+              description="Saat ini belum ada Portofolio yang tersedia. Silakan cek kembali nanti atau hubungi kami untuk informasi lebih lanjut."
+              icon={BriefcaseBusiness} /> 
           ) : (
             portfolios.map((item, index) => (
               <motion.div
@@ -127,7 +130,10 @@ const About = () => {
 
         <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-8'>
           { features.length === 0 ? (
-            <EmptyState sectionName="Fitur" icon={List} /> 
+            <EmptyState
+              title="Belum ada Fitur"
+              description="Saat ini belum ada Fitur yang tersedia. Silakan cek kembali nanti atau hubungi kami untuk informasi lebih lanjut."
+              icon={List} /> 
           ) : (
           features.map((feature, index) => (
             <motion.div

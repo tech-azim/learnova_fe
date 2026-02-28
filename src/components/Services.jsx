@@ -78,7 +78,10 @@ const Services = () => {
 
         <div className='grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6'>
           {services.length === 0 ? (
-            <EmptyState sectionName="Layanan" icon={Building2} />
+            <EmptyState
+              title="Belum ada Layanan"
+              description="Saat ini belum ada Layanan yang tersedia. Silakan cek kembali nanti atau hubungi kami untuk informasi lebih lanjut."
+              icon={Building2} />
           ) : (
             services.map((service, index) => (
               <motion.div

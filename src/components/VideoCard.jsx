@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/VideoCard.css';
+import { CalendarDays } from 'lucide-react';
 
 const VideoCard = ({ video, isSelected, onSelect }) => {
   return (
@@ -16,7 +17,7 @@ const VideoCard = ({ video, isSelected, onSelect }) => {
         <h4>{video.title}</h4>
         <p className="card-description">{video.description.substring(0, 80)}...</p>
         <div className="card-footer">
-          <span>📅 {video.date}</span>
+          <span className="flex items-center gap-2"><CalendarDays /> {video.date}</span>
         </div>
       </div>
     </div>

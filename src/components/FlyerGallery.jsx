@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axiosInstance from "../lib/api";
 import "../styles/FlyerGallery.css";
+import { Search } from "lucide-react";
 
 const FlyerGallery = () => {
   const [flyers, setFlyers] = useState([]);
@@ -59,7 +60,7 @@ const FlyerGallery = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
             className="search-input"
           />
-          <span className="search-icon">🔍</span>
+          <span className="search-icon text-gray-500"><Search /></span>
         </div>
       </header>
 

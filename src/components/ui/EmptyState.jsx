@@ -2,7 +2,7 @@ import * as React from "react";
 import { motion } from 'framer-motion';
 
 
-const EmptyState = ({ sectionName, icon: Icon }) => {
+const EmptyState = ({ title, description, useResetButton, handleClearFilter, icon: Icon }) => {
   return (
       <motion.div
         initial={{ opacity: 0, y: 8 }}
@@ -12,12 +12,19 @@ const EmptyState = ({ sectionName, icon: Icon }) => {
       >
         <Icon className="w-12 h-12 text-red-600 mb-4" />
         <h3 className="text-xl font-semibold text-gray-900 mb-2">
-          Belum ada {sectionName}
+          {title}
         </h3>
         <p className="text-sm text-gray-600 text-center max-w-xl">
-          Saat ini belum ada {sectionName} yang tersedia. Silakan cek kembali
-          nanti atau hubungi kami untuk informasi lebih lanjut.
+          {description}
         </p>
+
+        {
+          useResetButton && (
+            <button className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-4 py-2 rounded-lg shadow-xl transition-all duration-300 mt-3" onClick={handleClearFilter}>
+              Reset Filter
+            </button>
+          )
+        }
       </motion.div>
   );
 }

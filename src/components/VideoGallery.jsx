@@ -3,6 +3,8 @@ import axiosInstance from "../lib/api";
 import VideoPlayer from "./VideoPlayer";
 import VideoCard from "./VideoCard";
 import "../styles/VideoGallery.css";
+import EmptyState from "./ui/EmptyState";
+import { CalendarDays, Clapperboard, Search } from "lucide-react";
 
 const VideoGallery = () => {
   const [videos, setVideos] = useState([]);
@@ -41,7 +43,10 @@ const VideoGallery = () => {
               : "-",
           }));
           setVideos(mapped);
-          setSelectedVideo(mapped[0] || null);
+
+          // Set selectedVideo only to the first ACTIVE video
+          const firstActive = mapped.find((v) => v.is_active === true);
+          setSelectedVideo(firstActive || null);
         });
     } catch (err) {
       setError("Gagal memuat video. Silakan coba lagi nanti.");
@@ -57,21 +62,32 @@ const VideoGallery = () => {
 
   const categories = [
     "Semua",
-    ...new Set(videos.map((video) => video.category).filter(Boolean)),
+    ...new Set(
+      videos
+        .filter((v) => v.is_active === true)
+        .map((video) => video.category)
+        .filter(Boolean)
+    ),
   ];
 
   const filteredVideos = videos.filter((video) => {
+    const isActive = video.is_active === true;
     const matchesSearch =
       video.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       video.description?.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory =
       selectedCategory === "Semua" || video.category === selectedCategory;
-    return matchesSearch && matchesCategory;
+    return isActive && matchesSearch && matchesCategory;
   });
 
   const handleVideoSelect = (video) => {
     setSelectedVideo(video);
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleClearFilter = () => {
+    setSearchTerm("");
+    setSelectedCategory("Semua");
   };
 
   if (isLoading)
@@ -92,8 +108,11 @@ const VideoGallery = () => {
       </div>
     );
 
+  // Empty state: no active videos exist at all
+  const hasActiveVideos = videos.some((v) => v.is_active === true);
+
   return (
-    <div className="video-gallery">
+    <div className="video-gallery container mx-3">
       <div className="gallery-header">
         <h2>Galeri Video LSP</h2>
         <p>Lembaga Sertifikasi Profesi - Dokumentasi Kegiatan dan Pelatihan</p>
@@ -106,7 +125,7 @@ const VideoGallery = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <span className="search-icon">🔍</span>
+            <span className="search-icon text-gray-500"><Search /></span>
           </div>
 
           <div className="category-filter">
@@ -125,7 +144,28 @@ const VideoGallery = () => {
         </div>
       </div>
 
-      {selectedVideo && (
+      {/* Case 1: Tidak ada video aktif sama sekali */}
+      {!hasActiveVideos && (
+        <EmptyState 
+          title="Belum Ada Video Tersedia"
+          description="Saat ini belum ada video yang aktif. Silakan kunjungi kembali nanti."
+          icon={Clapperboard}
+        /> 
+      )}
+
+      {/* Case 2: Ada video aktif tapi filter tidak menemukan hasil */}
+      {hasActiveVideos && filteredVideos.length === 0 && (
+        <EmptyState 
+          title="Video Tidak Ditemukan"
+          description={searchTerm ? `Tidak ada video yang cocok dengan pencarian "${searchTerm}"` : `Tidak ada video dalam kategori "${selectedCategory}"`}
+          icon={Clapperboard}
+          handleClearFilter={handleClearFilter}
+          useResetButton
+        /> 
+      )}
+
+      {/* Case 3: Tampilan normal dengan video */}
+      {hasActiveVideos && filteredVideos.length > 0 && selectedVideo && (
         <div className="gallery-container">
           <div className="video-player-section">
             <VideoPlayer video={selectedVideo} />
@@ -133,7 +173,7 @@ const VideoGallery = () => {
               <h3>{selectedVideo.title}</h3>
               <div className="video-meta">
                 <span className="category-badge">{selectedVideo.category}</span>
-                <span>📅 {selectedVideo.date}</span>
+                <span className="flex items-center gap-2"><CalendarDays /> {selectedVideo.date}</span>
               </div>
               <p>{selectedVideo.description}</p>
             </div>
@@ -151,13 +191,6 @@ const VideoGallery = () => {
                 />
               ))}
             </div>
-            {filteredVideos.length === 0 && (
-              <div className="no-results">
-                <p>
-                  Tidak ada video yang ditemukan untuk pencarian "{searchTerm}"
-                </p>
-              </div>
-            )}
           </div>
         </div>
       )}

@@ -90,7 +90,10 @@ const Programs = () => {
         <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-8'>
           {
             programs.length === 0 ?(
-              <EmptyState sectionName="Program" icon={RocketIcon} />
+              <EmptyState 
+                title="Belum ada Program"
+                description="Saat ini belum ada Program yang tersedia. Silakan cek kembali nanti atau hubungi kami untuk informasi lebih lanjut."
+                icon={RocketIcon} />
             ) : (
               programs.map((program, index) => <motion.div key={index} initial={{
           opacity: 0,
@@ -126,11 +129,11 @@ const Programs = () => {
                 <div className='flex items-center gap-4 mb-4 text-sm text-gray-600'>
                   <div className='flex items-center gap-1'>
                     <Clock className='w-4 h-4' />
-                    <span>{program.duration} hari</span>
+                    <span>{program.duration} Hari</span>
                   </div>
                   <div className='flex items-center gap-1'>
                     <Users className='w-4 h-4' />
-                    <span>Max {program.participants} peserta</span>
+                    <span>Max. {program.participants} Peserta</span>
                   </div>
                 </div>
 
