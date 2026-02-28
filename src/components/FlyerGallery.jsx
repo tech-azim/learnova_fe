@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axiosInstance from "../lib/api";
 import "../styles/FlyerGallery.css";
-import { Search } from "lucide-react";
+import { Search, ImageIcon } from "lucide-react";
+import EmptyState from "./ui/EmptyState";
 
 const FlyerGallery = () => {
   const [flyers, setFlyers] = useState([]);
@@ -77,10 +78,10 @@ const FlyerGallery = () => {
           </button>
         </div>
       ) : filteredFlyers.length === 0 ? (
-        <div className="empty-gallery">
-          <div className="empty-icon">🪧</div>
-          <p>Tidak ada flyer yang ditemukan</p>
-        </div>
+          <EmptyState
+            title="Flyer tidak ditemukan"
+            description="Silakan cek kembali nanti atau hubungi kami untuk informasi lebih lanjut."
+            icon={ImageIcon} />
       ) : (
         <div className="flyer-grid">
           {filteredFlyers.map((flyer) => (

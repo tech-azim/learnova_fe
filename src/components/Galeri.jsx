@@ -71,11 +71,10 @@ const Galeri = () => {
               </button>
             </div>
           ) : images.length === 0 ? (
-            <div className="empty-gallery">
-              <div className="empty-icon">📷</div>
-              <h3>Belum ada gambar kegiatan</h3>
-              <p>Gambar akan ditampilkan di sini setelah diupload</p>
-            </div>
+              <EmptyState
+                title="Belum ada Galeri"
+                description="Silakan cek kembali nanti atau hubungi kami untuk informasi lebih lanjut."
+                icon={ImageIcon} />
           ) : (
             <div className="gallery-grid">
               {images.map((image) => (

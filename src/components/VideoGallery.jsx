@@ -100,11 +100,13 @@ const VideoGallery = () => {
 
   if (error)
     return (
-      <div className="error-state">
-        <p>{error}</p>
-        <button onClick={fetchVideos} className="retry-btn">
-          Coba Lagi
-        </button>
+      <div className="video-gallery container">
+        <div className="error-state ">
+          <p>{error}</p>
+          <button onClick={fetchVideos} className="retry-btn">
+            Coba Lagi
+          </button>
+        </div>
       </div>
     );
 

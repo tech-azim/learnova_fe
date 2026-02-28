@@ -2,7 +2,7 @@ import * as React from "react";
 import { motion } from 'framer-motion';
 
 
-const EmptyState = ({ title, description, useResetButton, handleClearFilter, icon: Icon }) => {
+const EmptyState = ({ title, description, useResetButton, useRetryButton, fetchFlyers, handleClearFilter, icon: Icon }) => {
   return (
       <motion.div
         initial={{ opacity: 0, y: 8 }}
@@ -22,6 +22,14 @@ const EmptyState = ({ title, description, useResetButton, handleClearFilter, ico
           useResetButton && (
             <button className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-4 py-2 rounded-lg shadow-xl transition-all duration-300 mt-3" onClick={handleClearFilter}>
               Reset Filter
+            </button>
+          )
+        }
+
+        {
+          useRetryButton && (
+            <button onClick={fetchFlyers} className="retry-btn">
+              Coba Lagi
             </button>
           )
         }
